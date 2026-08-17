@@ -2,15 +2,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class AndroidPlayer {
-    final char androidMoveSymbol = 'O';
-    GameBoard gameBoard;
+public class AndroidPlayer implements Player {
+    final GameBoard gameBoard;
 
     public AndroidPlayer(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
     }
 
-    public void doAndroidMove() {
+    public String getType() {
+        return "Android";
+    }
+
+    public Move doMove() {
         int boardLength = gameBoard.getBoardLength();
         List<int[]> freeSpaces = new ArrayList<>();
         for (int i = 0; i < boardLength; i++) {
@@ -22,7 +25,7 @@ public class AndroidPlayer {
         }
         Random random = new Random();
         int[] randomArray = freeSpaces.get(random.nextInt(freeSpaces.size()));
-        gameBoard.doMove(randomArray[0], randomArray[1], androidMoveSymbol);
-        gameBoard.printBoard();
+
+        return new Move(randomArray[0], randomArray[1]);
     }
 }
